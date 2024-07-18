@@ -39,9 +39,6 @@ const Signin = () => {
                 </Link>
             </View>
 
-
-
-
             <CustomButton title={`Login`} onButtonPress={() => {
             }}/>
 

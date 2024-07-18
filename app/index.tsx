@@ -5,10 +5,9 @@ import {CommonStyles} from "@/constants/Styles";
 import {StyleSheet, Text, View} from "react-native";
 import CustomButton from "@/components/CustomButton";
 import {Colors} from "@/constants/Colors";
-import {Link} from "expo-router";
+import {Link, router} from "expo-router";
 
 const WelcomeScreen = () => {
-
 
     return (
         <ThemedView style={[CommonStyles.container, styles.container]}>
@@ -25,28 +24,25 @@ const WelcomeScreen = () => {
                 <ThemedText style={styles.subtitleText}>Empowering Education through Technology</ThemedText>
             </View>
 
-            <ThemedText>
-                <Link href={'/signin'}>Signin</Link>
-            </ThemedText>
 
             {/* Action Buttons*/}
             <View style={styles.actionButtons}>
 
                 <CustomButton
                     title={`Login`}
-                    onButtonPress={() => {
-                    }}
+                    onButtonPress={() => router.push('/signin')}
+
                     extendedStyles={styles.signinButton}
                 />
 
                 <CustomButton
                     title={`Sign Up`}
-                    onButtonPress={() => {
-                    }}
+                    onButtonPress={() => router.push('/signup') }
                     extendedStyles={styles.signupButton}
                 />
 
             </View>
+
         </ThemedView>
     );
 };
