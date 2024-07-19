@@ -6,15 +6,31 @@ import { CommonStyles } from "@/constants/Styles";
 import { ThemedText } from "@/components/ThemedText";
 import CustomInput from "@/components/CustomInput";
 import { Text } from 'react-native';
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { Colors } from "@/constants/Colors";
 
 const Signup = () => {
-
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+
+
+    const handleSubmit = () => {
+        setError("");
+        setSuccess("");
+
+        if (password !== confirmPassword) {
+            setError("passwords do not match");
+            return;
+        }
+
+       router.replace('(tabs)')
+    };
+
 
     return (
         <ThemedView style={[CommonStyles.container]}>
@@ -52,7 +68,11 @@ const Signup = () => {
                 secureEntry
             />
 
+            {error && <ThemedText style={{ color: 'red' }}>{error}</ThemedText>}
+            {success && <ThemedText style={{ color: 'green' }}>{success}</ThemedText>}
+
             <CustomButton title={`Sign Up`} onButtonPress={() => {
+                handleSubmit()
             }} />
 
             <View style={{ width: '100%', alignItems: 'flex-start' }}>
