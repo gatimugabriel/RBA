@@ -23,7 +23,6 @@ const Signin = () => {
                 value={email}
                 onValueChange={setEmail}
                 placeholder={`email`}
-
             />
 
             <CustomInput
