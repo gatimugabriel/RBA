@@ -1,11 +1,11 @@
 import React from 'react';
-import {ThemedView} from "@/components/ThemedView";
-import {ThemedText} from "@/components/ThemedText";
-import {CommonStyles} from "@/constants/Styles";
-import {StyleSheet, Text, View} from "react-native";
+import { ThemedView } from "@/components/ThemedView";
+import { ThemedText } from "@/components/ThemedText";
+import { CommonStyles } from "@/constants/Styles";
+import { StyleSheet, Text, View } from "react-native";
 import CustomButton from "@/components/CustomButton";
-import {Colors} from "@/constants/Colors";
-import {Link, router} from "expo-router";
+import { Colors } from "@/constants/Colors";
+import { Link, router } from "expo-router";
 
 const WelcomeScreen = () => {
 
@@ -13,11 +13,11 @@ const WelcomeScreen = () => {
         <ThemedView style={[CommonStyles.container, styles.container]}>
 
             {/* Header*/}
-            <View style={{alignItems: 'center', padding: 20,}}>
+            <View style={{ alignItems: 'center', padding: 20, }}>
 
                 <ThemedText style={styles.titleText}>
                     Welcome to <Text
-                    style={{color: Colors.otherColors.primary}}> RBA </Text>
+                        style={{ color: Colors.otherColors.primary }}> RBA </Text>
                     School Management System
                 </ThemedText>
 
@@ -37,7 +37,7 @@ const WelcomeScreen = () => {
 
                 <CustomButton
                     title={`Sign Up`}
-                    onButtonPress={() => router.push('/signup') }
+                    onButtonPress={() => router.push('/signup')}
                     extendedStyles={styles.signupButton}
                 />
 
