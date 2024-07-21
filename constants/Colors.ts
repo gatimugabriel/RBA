@@ -7,39 +7,33 @@ const tintColorLight = "#0a7ea4";
 const tintColorDark = "#fff";
 
 export const Colors = {
-  light: {
-    text: "#11181C",
-    background: "#fff",
-    tint: tintColorLight,
-    icon: "#687076",
-    tabIconDefault: "#687076",
-    tabIconSelected: tintColorLight,
+    light: {
+        text: "#11181C",
+        background: "#fff",
+        tint: tintColorLight,
+        icon: "#687076",
+        tabIconDefault: "#687076",
+        tabIconSelected: tintColorLight,
 
-    inputBackground: "#f8f4ed",
+        inputBackground: "#f8f4ed",
+    },
+    dark: {
+        text: "#ECEDEE",
+        background: "#151718",
+        tint: tintColorDark,
+        icon: "#9BA1A6",
+        tabIconDefault: "#9BA1A6",
+        tabIconSelected: tintColorDark,
 
-    toni: "#0000",
-    latiphar: "#000",
-  },
-  dark: {
-    text: "#ECEDEE",
-    background: "#151718",
-    tint: tintColorDark,
-    icon: "#9BA1A6",
-    tabIconDefault: "#9BA1A6",
-    tabIconSelected: tintColorDark,
+        inputBackground: "#49453e",
+    },
 
-    inputBackground: "#49453e",
-
-    latiphar: "#000",
-    toni: "#0000",
-  },
-
-  otherColors: {
-    background: "#f9f7fc",
-    primary: "orange",
-    secondary: "#abc3aa",
-    accent: "#8eb097",
-    darkInputBackground: "#49453e",
-    lightInputBackground: "#f8f4ed",
-  },
+    otherColors: {
+        background: "#f9f7fc",
+        primary: "orange",
+        secondary: "#abc3aa",
+        accent: "#8eb097",
+        darkInputBackground: "#49453e",
+        lightInputBackground: "#f8f4ed",
+    },
 };

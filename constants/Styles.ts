@@ -1,5 +1,5 @@
-
 import {StyleSheet} from 'react-native';
+import {Colors} from "@/constants/Colors";
 
 export const CommonStyles = StyleSheet.create({
     container: {
@@ -20,10 +20,24 @@ export const CommonStyles = StyleSheet.create({
 
         paddingVertical: 12,
         paddingHorizontal: 12,
-        borderWidth: 1,
+        // borderWidth: 1,
         borderRadius: 8,
-    }
 
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        elevation: 5,
+
+    },
+
+    normalLink: {
+        textDecorationLine: 'underline',
+        color: Colors.otherColors.primary
+    }
 
 
 });

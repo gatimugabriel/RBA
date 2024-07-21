@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { ThemedView } from "@/components/ThemedView";
-import { StyleSheet, TextInput, View } from "react-native";
+import React, {useState} from 'react';
+import {ThemedView} from "@/components/ThemedView";
+import {StyleSheet, Text, View} from "react-native";
 import CustomButton from "@/components/CustomButton";
-import { CommonStyles } from "@/constants/Styles";
-import { ThemedText } from "@/components/ThemedText";
+import {CommonStyles} from "@/constants/Styles";
+import {ThemedText} from "@/components/ThemedText";
 import CustomInput from "@/components/CustomInput";
-import { Text } from 'react-native';
-import { Link, router } from "expo-router";
-import { Colors } from "@/constants/Colors";
+import {Link, router} from "expo-router";
+import {Colors} from "@/constants/Colors";
+import {useUser} from "@/hooks/useUser";
 
 const Signup = () => {
     const [email, setEmail] = useState('')
@@ -17,7 +17,7 @@ const Signup = () => {
 
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
-
+    const {setUser} = useUser()
 
     const handleSubmit = () => {
         setError("");
@@ -28,18 +28,25 @@ const Signup = () => {
             return;
         }
 
-       router.replace('(tabs)')
-    };
+        // save user
+        setUser({
+            email: email,
+            token: password,
+            fullName: name,
+            role: 2
+        })
 
+        // router.replace('(tabs)')
+    };
 
     return (
         <ThemedView style={[CommonStyles.container]}>
 
-            <View style={{ alignItems: 'center', padding: 20, }}>
+            <View style={{alignItems: 'center', padding: 20,}}>
 
                 <ThemedText style={styles.titleText}>
-                    Signup to  <Text
-                        style={{ color: Colors.otherColors.primary }}> RBA </Text>
+                    Signup to <Text
+                    style={{color: Colors.otherColors.primary}}> RBA </Text>
                     School Management System
                 </ThemedText>
 
@@ -68,22 +75,22 @@ const Signup = () => {
                 secureEntry
             />
 
-            {error && <ThemedText style={{ color: 'red' }}>{error}</ThemedText>}
-            {success && <ThemedText style={{ color: 'green' }}>{success}</ThemedText>}
+            {error && <ThemedText style={{color: 'red'}}>{error}</ThemedText>}
+            {success && <ThemedText style={{color: 'green'}}>{success}</ThemedText>}
 
             <CustomButton title={`Sign Up`} onButtonPress={() => {
                 handleSubmit()
-            }} />
+            }}/>
 
-            <View style={{ width: '100%', alignItems: 'flex-start' }}>
+            <View style={{width: '100%', alignItems: 'flex-start'}}>
                 <ThemedText>
-                    Already have an account? <Link href={'/signin'} style={{ color: 'red' }}>
-                        Sign in here
-                    </Link>
+                    Already have an account? <Link href={'/signin'} style={CommonStyles.normalLink}>
+                    Sign in here
+                </Link>
                 </ThemedText>
             </View>
 
-        </ThemedView >
+        </ThemedView>
     );
 };
 
