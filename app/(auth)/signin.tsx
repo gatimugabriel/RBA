@@ -20,21 +20,27 @@ const Signin = () => {
             email: 'antony@torotich.com',
             password: '1',
             role: 1,
-            token: 'sghsdfjlsdfismbfsfsd'
+            token: 'sghsdfjlsdfismbfsfsd',
+
+            ghUsername: 'developer-ke'
         },
         {
             fullName: 'Latiphar Mmella',
             email: 'latiphar@m.com',
             password: '2',
             role: 2,
-            token: 'sghsdfjlsdfismbfsfsd'
+            token: 'sghsdfjlsdfismbfsfsd',
+
+            ghUsername: 'mmella-code'
         },
         {
             fullName: 'Gabriel Gatimu',
             email: 'gabriel@gatimu.com',
             password: '3',
             role: 3,
-            token: 'sghsdfjlsdfismbfsfsd'
+            token: 'sghsdfjlsdfismbfsfsd',
+
+            ghUsername: 'gatimugabriel'
         }
 
     ]
@@ -53,6 +59,7 @@ const Signin = () => {
             role: user[0]?.role,
             token: user[0]?.token,
             fullName: user[0]?.fullName,
+            ghUsername: user[0]?.ghUsername
         })
 
         router.replace('(tabs)')

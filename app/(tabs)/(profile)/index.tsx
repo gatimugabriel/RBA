@@ -36,9 +36,10 @@ export default function Profile() {
             <ThemedView style={[CommonStyles.container, styles.container]}>
                 <ThemedView style={styles.header}>
                     <Image
-                        source={{uri: 'https://github.com/gatimugabriel'}}
+                        source={{uri: `https://github.com/${user?.ghUsername}.png`}}
                         style={styles.profileImage}
                     />
+
                     <ThemedText style={styles.name}>{fullName || user?.fullName || "No Name"}</ThemedText>
                     <ThemedText style={styles.role}>{getRoleName(user?.role || 2)}</ThemedText>
 

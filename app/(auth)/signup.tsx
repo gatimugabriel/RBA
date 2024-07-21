@@ -31,12 +31,14 @@ const Signup = () => {
         // save user
         setUser({
             email: email,
+            role: 2,
             token: password,
             fullName: name,
-            role: 2
+
+            ghUsername: 'github'
         })
 
-        // router.replace('(tabs)')
+        router.replace('(tabs)')
     };
 
     return (

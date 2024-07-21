@@ -7,6 +7,7 @@ type User = {
     token: string
 
     fullName?: string
+    ghUsername?: string
 }
 
 type UserContext = {
