@@ -195,7 +195,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
     },
     selectedRoleButton: {
-        backgroundColor: Colors.otherColors.primary,
+        backgroundColor: Colors.otherColors.accent,
+        borderColor: Colors.otherColors.accent
     },
     roleButtonText: {
         marginTop: 5,
