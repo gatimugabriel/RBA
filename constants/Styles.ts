@@ -37,7 +37,14 @@ export const CommonStyles = StyleSheet.create({
     normalLink: {
         textDecorationLine: 'underline',
         color: Colors.otherColors.primary
-    }
+    },
 
-
+    errorText: {
+        color: 'red',
+        marginBottom: 10,
+    },
+    successText: {
+        color: 'green',
+        marginBottom: 10,
+    },
 });

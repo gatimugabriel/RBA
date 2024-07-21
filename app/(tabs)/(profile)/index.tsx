@@ -4,9 +4,10 @@ import {ThemedText} from "@/components/ThemedText";
 import CustomButton from "@/components/CustomButton";
 import {Link, router} from "expo-router";
 import {CommonStyles} from "@/constants/Styles";
-import {Image, ScrollView, StyleSheet} from "react-native";
+import {Image, StyleSheet} from "react-native";
 import {Colors} from "@/constants/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import {ThemedScrollView} from "@/components/ThemedScrollView";
 
 export default function Profile() {
     const {user, setUser} = useUser()
@@ -23,16 +24,18 @@ export default function Profile() {
             case 1:
                 return "Admin";
             case 2:
-                return "User";
+                return "Teacher";
             case 3:
-                return "Moderator";
+                return "Parent";
+            case 4:
+                return "Student";
             default:
                 return "Unknown";
         }
     };
 
     return (
-        <ScrollView style={[styles.scrollView]}>
+        <ThemedScrollView style={[styles.scrollView]}>
             <ThemedView style={[CommonStyles.container, styles.container]}>
                 <ThemedView style={styles.header}>
                     <Image
@@ -53,7 +56,7 @@ export default function Profile() {
                     </ThemedView>
                     <ThemedView style={styles.infoItem}>
                         <Ionicons name="call-outline" size={24} color="gray"/>
-                        <ThemedText style={styles.infoText}>+254 700 111 222</ThemedText>
+                        <ThemedText style={styles.infoText}>+254{user?.phoneNumber}</ThemedText>
                     </ThemedView>
                     <ThemedView style={styles.infoItem}>
                         <Ionicons name="location" size={24} color="gray"/>
@@ -93,15 +96,13 @@ export default function Profile() {
                 </ThemedView>
 
             </ThemedView>
-        </ScrollView>
+        </ThemedScrollView>
     )
 }
-
 
 const styles = StyleSheet.create({
     scrollView: {
         flex: 1,
-        // backgroundColor: 'red',
     },
     container: {
         paddingVertical: 30,
@@ -111,6 +112,7 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         padding: 20
     },
+
     profileImage: {
         width: 150,
         height: 150,

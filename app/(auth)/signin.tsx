@@ -17,6 +17,7 @@ const Signin = () => {
     const users = [
         {
             fullName: 'Antony Torotich',
+            phoneNumber: 700111222,
             email: 'antony@torotich.com',
             password: '1',
             role: 1,
@@ -26,6 +27,7 @@ const Signin = () => {
         },
         {
             fullName: 'Latiphar Mmella',
+            phoneNumber: 700222111,
             email: 'latiphar@m.com',
             password: '2',
             role: 2,
@@ -35,6 +37,7 @@ const Signin = () => {
         },
         {
             fullName: 'Gabriel Gatimu',
+            phoneNumber: 700121212,
             email: 'gabriel@gatimu.com',
             password: '3',
             role: 3,
@@ -56,6 +59,7 @@ const Signin = () => {
         // Set User to State
         setUser({
             email: user[0]?.email,
+            phoneNumber: user[0]?.phoneNumber,
             role: user[0]?.role,
             token: user[0]?.token,
             fullName: user[0]?.fullName,

@@ -2,11 +2,12 @@ import React, {createContext, useEffect, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type User = {
+    fullName: string
+    phoneNumber: string | number
     email: string
     role: number
     token: string
 
-    fullName?: string
     ghUsername?: string
 }
 
