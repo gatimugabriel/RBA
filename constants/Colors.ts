@@ -29,10 +29,10 @@ export const Colors = {
     },
 
     otherColors: {
-        background: "#f9f7fc",
         primary: "orange",
-        secondary: "#abc3aa",
         accent: "#8eb097",
+        accentLighter: "#409342",
+        tintColorLight:"#0a7ea4",
         darkInputBackground: "#49453e",
         lightInputBackground: "#f8f4ed",
     },

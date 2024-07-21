@@ -16,19 +16,22 @@ const Signin = () => {
 
     const users = [
         {
-            email: 'a',
+            fullName: 'Antony Torotich',
+            email: 'antony@torotich.com',
             password: '1',
             role: 1,
             token: 'sghsdfjlsdfismbfsfsd'
         },
         {
-            email: 'b',
+            fullName: 'Latiphar Mmella',
+            email: 'latiphar@m.com',
             password: '2',
             role: 2,
             token: 'sghsdfjlsdfismbfsfsd'
         },
         {
-            email: 'c',
+            fullName: 'Gabriel Gatimu',
+            email: 'gabriel@gatimu.com',
             password: '3',
             role: 3,
             token: 'sghsdfjlsdfismbfsfsd'
@@ -49,6 +52,7 @@ const Signin = () => {
             email: user[0]?.email,
             role: user[0]?.role,
             token: user[0]?.token,
+            fullName: user[0]?.fullName,
         })
 
         router.replace('(tabs)')
