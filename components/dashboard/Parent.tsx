@@ -4,11 +4,11 @@ import {ThemedText} from '@/components/ThemedText';
 import {ThemedView} from '@/components/ThemedView';
 import {CommonStyles} from '@/constants/Styles';
 
-export default function AdminDashboard() {
+export default function ParentDashboard() {
     return (
         <ThemedView style={[CommonStyles.container]}>
             <ThemedText>
-                ADMIN
+                PARENT DASHBOARD
             </ThemedText>
         </ThemedView>
     );

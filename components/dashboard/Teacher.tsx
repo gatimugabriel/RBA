@@ -4,11 +4,11 @@ import {ThemedText} from '@/components/ThemedText';
 import {ThemedView} from '@/components/ThemedView';
 import {CommonStyles} from '@/constants/Styles';
 
-export default function UserDashboard() {
+export default function TeacherDashboard() {
     return (
         <ThemedView style={[CommonStyles.container]}>
             <ThemedText>
-                USER
+                Teacher
             </ThemedText>
         </ThemedView>
     );
