@@ -7,6 +7,10 @@ import 'react-native-reanimated';
 
 import {useColorScheme} from '@/hooks/useColorScheme';
 import {UserProvider} from "@/state/UserContext";
+import {Colors} from "@/constants/Colors";
+import {View} from "react-native";
+import {ThemedText} from "@/components/ThemedText";
+import {ThemedView} from "@/components/ThemedView";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -43,3 +47,5 @@ export default function RootLayout() {
         </UserProvider>
     )
 }
+
+

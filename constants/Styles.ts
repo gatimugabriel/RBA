@@ -12,18 +12,16 @@ export const CommonStyles = StyleSheet.create({
 
     button: {
         display: 'flex',
-        flexDirection: "row",
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-
 
         paddingVertical: 12,
         paddingHorizontal: 12,
         // borderWidth: 1,
         borderRadius: 8,
 
-        // shadowColor: '#000',
+        shadowColor: '#000',
         shadowOffset: {
             width: 0,
             height: 3,

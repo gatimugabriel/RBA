@@ -69,17 +69,17 @@ export default function Profile() {
                     <CustomButton
                         title="Edit Profile"
                         onButtonPress={() => router.push('/update')}
-                        extendedStyles={styles.editButton}
+                        extendedStyles={[styles.button, styles.editButton]}
                     />
                     <CustomButton
                         title="Change Password"
                         onButtonPress={() => router.push('/changePassword')}
-                        extendedStyles={styles.changePasswordButton}
+                        extendedStyles={[styles.button, styles.changePasswordButton]}
                     />
                     <CustomButton
                         title="Logout"
                         onButtonPress={handleLogout}
-                        extendedStyles={styles.logoutButton}
+                        extendedStyles={[styles.button, styles.logoutButton]}
                     />
                 </ThemedView>
 
@@ -144,12 +144,21 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     buttonSection: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
+        width: '100%',
+        display: 'flex',
+        alignItems:'center',
+        justifyContent:'center',
+        flexDirection: 'column',
         marginBottom: 30,
-        gap: 16
-    },
+        gap: 16,
+        padding:10,
 
+        // borderWidth:1,
+        // borderColor:'gray'
+    },
+    button: {
+        // width: '100%',
+    },
     editButton: {
         backgroundColor: Colors.otherColors.accentLighter,
     },
