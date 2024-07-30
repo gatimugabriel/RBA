@@ -6,38 +6,49 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { UserProvider } from "@/state/UserContext";
+import { Colors } from "@/constants/Colors";
+import { View } from "react-native";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+    const colorScheme = useColorScheme();
+    const [loaded] = useFonts({
+        SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    });
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
+    useEffect(() => {
+        if (loaded) {
+            SplashScreen.hideAsync();
+        }
+
+    }, [loaded]);
+
+    if (!loaded) {
+        return null;
     }
-  }, [loaded]);
 
-  if (!loaded) {
-    return null;
-  }
+    return (
+        <UserProvider>
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+            <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
 
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="signin" options={{ headerShown: false }} />
-        <Stack.Screen name="signup" options={{ headerShown: false }} />
-        <Stack.Screen name="resetpassword" options={{ headerShown: false }} />
+                <Stack>
+                    <Stack.Screen name="index" options={{ headerShown: false }} />
+                    <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                    <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                    <Stack.Screen name="+not-found" />
+                </Stack>
 
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        {/* <Stack.Screen name="+not-found" /> */}
-      </Stack>
-    </ThemeProvider>
-  );
+            </ThemeProvider>
+
+
+        </UserProvider>
+    )
 }
+
+

@@ -1,19 +1,31 @@
-import { StyleSheet } from 'react-native';
+import {useUser} from "@/hooks/useUser";
+import {ThemedView} from "@/components/ThemedView";
+import {ThemedText} from "@/components/ThemedText";
+import {CommonStyles} from "@/constants/Styles";
+import {Redirect} from "expo-router";
+import AdminDashboard from "@/components/dashboard/Admin";
+import StudentDashboard from "@/components/dashboard/Student";
+import TeacherDashboard from "@/components/dashboard/Teacher";
+import ParentDashboard from "@/components/dashboard/Parent";
 
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { CommonStyles } from '@/constants/Styles';
+export default function Dashboard() {
+    const {user} = useUser()
 
-export default function UserDashboard() {
-  return (
-    <ThemedView style={[CommonStyles.container]}>
-        <ThemedText>
-            USER
-        </ThemedText>
-    </ThemedView>
-  );
+    if (!user){
+        return <Redirect href={'/'} />
+    }
+
+    switch (user?.role) {
+        case 1:
+            return AdminDashboard()
+        case 2:
+            return TeacherDashboard()
+        case 3:
+            return ParentDashboard()
+        case 4:
+            return StudentDashboard()
+        default:
+            return <ThemedView style={CommonStyles.container}><ThemedText>Your dashboard is being setup... </ThemedText></ThemedView>
+    }
 }
 
-const styles = StyleSheet.create({
- 
-});
