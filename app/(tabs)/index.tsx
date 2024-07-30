@@ -10,6 +10,7 @@ import ParentDashboard from "@/components/dashboard/Parent";
 
 export default function Dashboard() {
     const {user} = useUser()
+
     if (!user){
         return <Redirect href={'/'} />
     }

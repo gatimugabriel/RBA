@@ -1,12 +1,13 @@
-import React, {createContext, useEffect, useState} from "react";
+import React, { createContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-type User = {
+type User = {    
     fullName: string
     phoneNumber: string | number
     email: string
     role: number
     token: string
+
 
     ghUsername?: string
 }
@@ -17,9 +18,11 @@ type UserContext = {
     loadUser: () => Promise<void>
 }
 
+
+
 export const UserContext = createContext<UserContext | undefined>(undefined)
 
-export const UserProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
+export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null)
 
     // get user form async storage
@@ -35,7 +38,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({children}
         }
     }
 
-    //  Save user to local storage
+    //  Save user to local(async) storage
     const saveUser = async (userData: User | null) => {
         try {
             if (userData) {
@@ -59,7 +62,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({children}
     }, []);
 
     return (
-        <UserContext.Provider value={{user, setUser: handleSetUser, loadUser}}>
+        <UserContext.Provider value={{ user, loadUser, setUser: handleSetUser }}>
             {children}
         </UserContext.Provider>
     )
