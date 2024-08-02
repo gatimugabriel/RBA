@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ThemedView} from "@/components/ThemedView";
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {ActivityIndicator, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import CustomButton from "@/components/CustomButton";
 import {CommonStyles} from "@/constants/Styles";
 import {ThemedText} from "@/components/ThemedText";
@@ -27,9 +27,10 @@ const Signup = () => {
 
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
-    const {setUser} = useUser();
+    const [isLoading, setIsLoading] = useState(false)
+    const {setUser} = useUser()
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         setError("");
         setSuccess("");
 
@@ -46,15 +47,45 @@ const Signup = () => {
             setError("Please select a role");
             return;
         }
-        // save user
-        setUser({
-            fullName: name,
-            phoneNumber: phoneNumber,
-            email: email,
-            role: selectedRole,
-            token: 'dummy-token-edcjk.dfsdfsdf.sdhaksdjias',
-        });
-        router.replace('(tabs)');
+
+        const inputData = {fullName: name, email, phoneNumber,  password, confirmPassword, selectedRole};
+
+        try {
+            setIsLoading(true)
+            const serverResponse = await fetch('http://192.168.100.17:3000/signup', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(inputData)
+            })
+
+            const response = await serverResponse.json()
+
+            if (!serverResponse.ok) {
+                return setError(response.message || 'Error Occurred during Signup')
+            }
+
+            const data = response.data
+
+            // Set User to State
+            setUser({
+                email: data.email,
+                phoneNumber: data.phoneNumber,
+                role: data.role,
+                token: response.accessToken,
+                fullName: data.fullName,
+
+                ghUsername: data.ghUsername
+            })
+
+            router.replace('(tabs)')
+        } catch (error: any) {
+            setError(error.message || 'An error occurred during sign up');
+        } finally {
+            setIsLoading(false)
+        }
     };
 
     return (
@@ -102,6 +133,7 @@ const Signup = () => {
                     secureEntry
                 />
 
+                {/* Roles */}
                 <ThemedView style={styles.roleContainer}>
                     <ThemedText style={styles.roleTitle}>Select your role:</ThemedText>
 
@@ -134,7 +166,8 @@ const Signup = () => {
                 {error && <ThemedText style={CommonStyles.errorText}>{error}</ThemedText>}
                 {success && <ThemedText style={CommonStyles.successText}>{success}</ThemedText>}
 
-                <CustomButton title="Sign Up" onButtonPress={handleSubmit}/>
+                {isLoading ? <ActivityIndicator/> :
+                    <CustomButton title={`Submit`} onButtonPress={() => handleSubmit()}/>}
 
                 <ThemedView style={styles.signInLinkContainer}>
                     <ThemedText>

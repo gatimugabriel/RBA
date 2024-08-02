@@ -1,17 +1,19 @@
-import {Tabs} from 'expo-router';
+import { Tabs } from 'expo-router';
 import React from 'react';
 
-import {TabBarIcon} from '@/components/navigation/TabBarIcon';
-import {Colors} from '@/constants/Colors';
-import {StyleSheet, useColorScheme, View} from "react-native";
-import {ThemedText} from "@/components/ThemedText";
-import {useUser} from "@/hooks/useUser";
-import {ThemedView} from "@/components/ThemedView";
+import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { Colors } from '@/constants/Colors';
+import { StyleSheet, useColorScheme, View } from "react-native";
+import { ThemedText } from "@/components/ThemedText";
+import { useUser } from "@/hooks/useUser";
+import { ThemedView } from "@/components/ThemedView";
 
 export default function TabLayout() {
     const colorScheme = useColorScheme();
-    const {user} = useUser()
+    const { user } = useUser()
     const firstName = user?.fullName.split(' ')[0]
+    // const firstName = 'gabu'
+
     return (
         <Tabs
             screenOptions={{
@@ -24,12 +26,12 @@ export default function TabLayout() {
                 name="index"
                 options={{
                     title: '',
-                    tabBarIcon: ({color, focused}) => (
-                        <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color}/>
+                    tabBarIcon: ({ color, focused }) => (
+                        <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
                     ),
                     headerShown: true,
                     // headerStyle: {backgroundColor: Colors.otherColors.primary},
-                    headerStyle: {backgroundColor: Colors[colorScheme ?? 'light'].inputBackground,},
+                    headerStyle: { backgroundColor: Colors[colorScheme ?? 'light'].inputBackground, },
                     headerRight: () => (
                         <>
                             <View style={{
@@ -51,8 +53,8 @@ export default function TabLayout() {
                 name="explore"
                 options={{
                     title: 'Explore',
-                    tabBarIcon: ({color, focused}) => (
-                        <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color}/>
+                    tabBarIcon: ({ color, focused }) => (
+                        <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
                     ),
                 }}
             />
@@ -61,8 +63,8 @@ export default function TabLayout() {
                 name="(profile)"
                 options={{
                     title: 'Profile',
-                    tabBarIcon: ({color, focused}) => (
-                        <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color}/>
+                    tabBarIcon: ({ color, focused }) => (
+                        <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
                     ),
                 }}
             />

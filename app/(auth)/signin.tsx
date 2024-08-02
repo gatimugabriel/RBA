@@ -1,29 +1,28 @@
-import React, { useState } from "react";
-import { ThemedView } from "@/components/ThemedView";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import React, {useState} from "react";
+import {ThemedView} from "@/components/ThemedView";
+import {ActivityIndicator, StyleSheet, View} from "react-native";
 import CustomButton from "@/components/CustomButton";
-import { CommonStyles } from "@/constants/Styles";
-import { ThemedText } from "@/components/ThemedText";
+import {CommonStyles} from "@/constants/Styles";
+import {ThemedText} from "@/components/ThemedText";
 import CustomInput from "@/components/CustomInput";
-import { Link, router } from "expo-router";
-import { useUser } from "@/hooks/useUser";
+import {Link, router} from "expo-router";
+import {useUser} from "@/hooks/useUser";
 
 const Signin = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState("");
-    const { setUser } = useUser()
+    const {setUser} = useUser()
 
     const handleSubmit = async () => {
         setError("");
 
-        //  send {email, password} to server
-        const inputData = { email, password }
+        const inputData = {email, password}
 
         try {
             setIsLoading(true)
-            const serverResponse = await fetch('http://192.168.1.110:3000/signin', {
+            const serverResponse = await fetch('http://192.168.100.17:3000/signin', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -32,17 +31,23 @@ const Signin = () => {
                 body: JSON.stringify(inputData)
             })
 
-            const returnedData = await serverResponse.json()
+            const response = await serverResponse.json()
 
-            // Set User to State
+            if (!serverResponse.ok) {
+               return setError(response.message || 'Invalid credentials')
+            }
+
+            const data = response.data
+
+           // Set User to State
             setUser({
-                email: returnedData.user[0]?.email,
-                phoneNumber: returnedData.user[0]?.phoneNumber,
-                role: returnedData.user[0]?.role,
-                token: returnedData.user[0]?.token,
-                fullName: returnedData.user[0]?.fullName,
+                email: data.email,
+                phoneNumber: data.phoneNumber,
+                role: data.role,
+                token: response.accessToken,
+                fullName: data.fullName,
 
-                ghUsername: returnedData.user[0]?.ghUsername
+                ghUsername: data.ghUsername || 'johndoe'
             })
 
             router.replace('(tabs)')
@@ -69,21 +74,21 @@ const Signin = () => {
                 secureEntry
             />
 
-            <View style={{ width: "100%", alignItems: "flex-end" }}>
-                <Link href={"/forgotPassword"} style={{ color: "red" }}>
+            <View style={{width: "100%", alignItems: "flex-end"}}>
+                <Link href={"/forgotPassword"} style={{color: "red"}}>
                     Forgot password?
                 </Link>
             </View>
 
-            {error && <ThemedText style={{ color: 'red' }}>{error}</ThemedText>}
+            {error && <ThemedText style={{color: 'red'}}>{error}</ThemedText>}
 
-            {isLoading ? <ActivityIndicator /> : <CustomButton title={`Login`} onButtonPress={() => handleSubmit()} />}
+            {isLoading ? <ActivityIndicator/> : <CustomButton title={`Sign in`} onButtonPress={() => handleSubmit()}/>}
 
-            <View style={{ width: '100%', alignItems: 'flex-start' }}>
+            <View style={{width: '100%', alignItems: 'flex-start'}}>
                 <ThemedText>
                     You don't have an account? <Link href={'/signup'} style={CommonStyles.normalLink}>
-                        Sign up here
-                    </Link>
+                    Sign up here
+                </Link>
                 </ThemedText>
             </View>
         </ThemedView>
