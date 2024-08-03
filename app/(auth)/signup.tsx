@@ -10,6 +10,7 @@ import {Colors} from "@/constants/Colors";
 import {useUser} from "@/hooks/useUser";
 import {Ionicons} from '@expo/vector-icons';
 import {ThemedScrollView} from "@/components/ThemedScrollView";
+import apiService from "@/services/api";
 
 const roles = [
     {id: 2, name: 'Teacher', icon: 'book-outline'},
@@ -48,33 +49,19 @@ const Signup = () => {
             return;
         }
 
-        const inputData = {fullName: name, email, phoneNumber,  password, confirmPassword, selectedRole};
+        const inputData = {fullName: name, email, phoneNumber,  password, confirmPassword, role: selectedRole};
 
         try {
             setIsLoading(true)
-            const serverResponse = await fetch('http://192.168.100.17:3000/api/signup', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(inputData)
-            })
-
-            const response = await serverResponse.json()
-
-            if (!serverResponse.ok) {
-                return setError(response.message || 'Error Occurred during Signup')
-            }
-
-            const data = response.data
+            const response = await apiService.post('/signup', inputData)
+            const data = response.data.data
 
             // Set User to State
             setUser({
                 email: data.email,
                 phoneNumber: data.phoneNumber,
                 role: data.role,
-                token: response.accessToken,
+                token: response.data.accessToken,
                 fullName: data.fullName,
 
                 ghUsername: data.ghUsername || 'gatimugabriel'
@@ -82,7 +69,7 @@ const Signup = () => {
 
             router.replace('(tabs)')
         } catch (error: any) {
-            setError(error.message || 'An error occurred during sign up');
+            setError(error.response.data.message || 'An error occurred during sign up');
         } finally {
             setIsLoading(false)
         }

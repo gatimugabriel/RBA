@@ -42,7 +42,7 @@ const WelcomeScreen = () => {
 
                 <CustomButton
                     title={`Sign Up`}
-                    onButtonPress={() => router.push('(auth)/signup')}
+                    onButtonPress={() => router.push("(auth)/signup")}
                     extendedStyles={styles.signupButton}
                 />
 
