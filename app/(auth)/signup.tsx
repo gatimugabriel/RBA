@@ -52,7 +52,7 @@ const Signup = () => {
 
         try {
             setIsLoading(true)
-            const serverResponse = await fetch('http://192.168.100.17:3000/signup', {
+            const serverResponse = await fetch('http://192.168.100.17:3000/api/signup', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -77,7 +77,7 @@ const Signup = () => {
                 token: response.accessToken,
                 fullName: data.fullName,
 
-                ghUsername: data.ghUsername
+                ghUsername: data.ghUsername || 'gatimugabriel'
             })
 
             router.replace('(tabs)')
