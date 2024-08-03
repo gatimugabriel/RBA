@@ -7,6 +7,7 @@ import {ThemedText} from "@/components/ThemedText";
 import CustomInput from "@/components/CustomInput";
 import {Link, router} from "expo-router";
 import {useUser} from "@/hooks/useUser";
+import apiService from "@/services/api";
 
 const Signin = () => {
     const [email, setEmail] = useState("");
@@ -22,37 +23,24 @@ const Signin = () => {
 
         try {
             setIsLoading(true)
-            const serverResponse = await fetch('http://192.168.100.17:3000/api/signin', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(inputData)
-            })
 
-            const response = await serverResponse.json()
-
-            if (!serverResponse.ok) {
-               return setError(response.message || 'Invalid credentials')
-            }
-
-            const data = response.data
+            const response = await apiService.post('/signin', inputData)
+            const userData = response.data.data
 
            // Set User to State
             setUser({
-                email: data.email,
-                phoneNumber: data.phoneNumber,
-                role: data.role,
-                token: response.accessToken,
-                fullName: data.fullName,
+                email: userData.email,
+                phoneNumber: userData.phoneNumber,
+                role: userData.role,
+                token: response.data.accessToken,
+                fullName: userData.fullName,
 
-                ghUsername: data.ghUsername || 'gatimugabriel'
+                ghUsername: userData.ghUsername || 'gatimugabriel'
             })
 
             router.replace('(tabs)')
         } catch (error: any) {
-            setError(error.message || 'An error occurred during sign in');
+            setError(error.response.data.message || 'An error occurred during sign in');
         } finally {
             setIsLoading(false)
         }
@@ -74,11 +62,11 @@ const Signin = () => {
                 secureEntry
             />
 
-            <View style={{width: "100%", alignItems: "flex-end"}}>
-                <Link href={"/forgotPassword"} style={{color: "red"}}>
-                    Forgot password?
-                </Link>
-            </View>
+            {/*<View style={{width: "100%", alignItems: "flex-end"}}>*/}
+            {/*    <Link href={"/forgotPassword"} style={{color: "red"}}>*/}
+            {/*        Forgot password?*/}
+            {/*    </Link>*/}
+            {/*</View>*/}
 
             {error && <ThemedText style={{color: 'red'}}>{error}</ThemedText>}
 

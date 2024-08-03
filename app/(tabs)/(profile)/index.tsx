@@ -14,7 +14,6 @@ export default function Profile() {
     const {email, fullName} = {...user}
 
     const handleLogout = () => {
-        alert("Logged out!")
         setUser(null);
         router.replace('/');
     };
@@ -34,6 +33,7 @@ export default function Profile() {
         }
     };
 
+    // @ts-ignore
     return (
         <ThemedScrollView style={[styles.scrollView]}>
             <ThemedView style={[CommonStyles.container, styles.container]}>
@@ -86,7 +86,7 @@ export default function Profile() {
                 {/*####### Links Section ####*/}
                 <ThemedView style={styles.linkSection}>
                     <ThemedText style={styles.linkHeader}>Quick Links</ThemedText>
-                    <Link href={'/settings'} style={[CommonStyles.normalLink, styles.link]}>Settings</Link>
+                    <Link href={"/settings"} style={[CommonStyles.normalLink, styles.link]}>Settings</Link>
                     <Link href={'/privacy'} style={[CommonStyles.normalLink, styles.link]}>Privacy
                         Policy</Link>
                     <Link href={'/terms'} style={[CommonStyles.normalLink, styles.link]}>Terms
