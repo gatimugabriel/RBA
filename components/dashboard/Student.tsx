@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {
+    ActivityIndicator,
     FlatList,
     ListRenderItem,
     RefreshControl,
@@ -76,11 +77,14 @@ export default function StudentDashboard() {
 
     const joinClass = async (classID: string) => {
         try {
+            setIsLoading(true)
             const response = await apiService.post('/classes/join', {classID});
             onRefresh();
             alert(response.data.message)
         } catch (err: any) {
             alert(`Error occurred while joining the class: ${err.message || err.response.data.message}`);
+        } finally {
+            setIsLoading(false)
         }
     };
 
@@ -94,18 +98,21 @@ export default function StudentDashboard() {
                 <ThemedText style={{fontSize: 14}}>{item.day}, [ {item.time} ]</ThemedText>
             </ThemedView>
             {/*<ThemedText style={styles.studentsCount}>{item?.studentsCount || 0} students</ThemedText>*/}
-            <CustomButton title="Join Class" onButtonPress={() => joinClass(item._id)}/>
+            {isLoading ? <ActivityIndicator/> :
+                <CustomButton title="Join Class" onButtonPress={() => joinClass(item._id)}/>}
         </TouchableOpacity>
     )
 
     const renderJoinedClassItem: ListRenderItem<Class> = ({item}) => (
         <TouchableOpacity style={styles.classItem}>
             <ThemedText style={styles.className}>{item.className}</ThemedText>
+            <ThemedText style={[styles.className, {color: 'gray'}]}>Tutor:
+                Mr. {item.teacherID.fullName}</ThemedText>
             <ThemedView style={{flexDirection: 'row', alignItems: 'center'}}>
                 <ThemedText style={[styles.className, {color: 'gray'}]}>Time: </ThemedText>
                 <ThemedText style={{fontSize: 14}}>{item.day}, [ {item.time} ]</ThemedText>
             </ThemedView>
-            <ThemedText style={styles.studentsCount}>{item?.studentsCount || 0} students</ThemedText>
+            {/*<ThemedText style={styles.studentsCount}>{item?.studentsCount || 0} students</ThemedText>*/}
         </TouchableOpacity>
     );
 
@@ -119,21 +126,25 @@ export default function StudentDashboard() {
                 }>
 
                 {/* Student Classes*/}
+                <ThemedView style={[styles.header, {marginVertical: 20}]}>
+                    <ThemedText style={styles.headerText}>My Classes</ThemedText>
+                </ThemedView>
                 <FlatList
                     data={joinedClasses}
                     renderItem={renderJoinedClassItem}
                     keyExtractor={item => item._id}
-                    ListHeaderComponent={() => (
-                        <ThemedView style={styles.header}>
-                            <ThemedText style={styles.headerText}>My Classes</ThemedText>
-                        </ThemedView>
-                    )}
+                    // ListHeaderComponent={() => (
+                    //     <ThemedView style={styles.header}>
+                    //         <ThemedText style={styles.headerText}>My Classes</ThemedText>
+                    //     </ThemedView>
+                    // )}
+                    horizontal
                     ListEmptyComponent={() => (
                         <ThemedView style={styles.emptyState}>
                             <ThemedText>You haven't joined any classes yet.</ThemedText>
                         </ThemedView>
                     )}
-                    contentContainerStyle={styles.flatList}
+                    contentContainerStyle={[styles.flatList, {marginBottom: 20}]}
                 />
 
                 {/*Available classes*/}
