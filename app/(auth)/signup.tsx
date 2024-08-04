@@ -84,7 +84,7 @@ const Signup = () => {
                         Join <Text style={{color: Colors.otherColors.primary}}>RBA</Text>
                     </ThemedText>
                     <ThemedText style={styles.subtitleText}>
-                        School Management System
+                        The best online learning app
                     </ThemedText>
                 </ThemedView>
 

@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {
-    ActivityIndicator,
     FlatList,
     ListRenderItem,
     RefreshControl,
@@ -24,7 +23,7 @@ interface Class {
     teacherID: any
 }
 
-export default function StudentDashboard  () {
+export default function StudentDashboard() {
     const [refreshing, setRefreshing] = useState(false);
     const [availableClasses, setAvailableClasses] = useState<Class[]>([]);
     const [joinedClasses, setJoinedClasses] = useState<Class[]>([]);
@@ -118,7 +117,6 @@ export default function StudentDashboard  () {
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh}
                                     colors={[Colors.otherColors.primary]}/>
                 }>
-                {isLoading && <ActivityIndicator />}
 
                 {/* Student Classes*/}
                 <FlatList
