@@ -58,6 +58,7 @@ const WelcomeScreen = () => {
     const handleMomentumScrollEnd = (event) => {
         const newIndex = Math.floor(event.nativeEvent.contentOffset.x / width);
         setCurrentIndex(newIndex);
+
         startAutoScroll();
     };
 
@@ -77,6 +78,7 @@ const WelcomeScreen = () => {
 
     return (
         <ThemedView style={styles.container}>
+            {/* Header */}
             <ThemedView style={styles.header}>
                 <ThemedText style={styles.titleText}>
                     Welcome to <Text style={{color: Colors.otherColors.primary}}>RBA</Text>
@@ -86,15 +88,19 @@ const WelcomeScreen = () => {
                 </ThemedText>
             </ThemedView>
 
+            {/* Images */}
             <ThemedView>
+
                 <FlatList
                     ref={flatListRef}
+
                     data={carouselData}
                     renderItem={renderCarouselItem}
                     keyExtractor={(item) => item.id}
                     horizontal
-                    pagingEnabled
                     showsHorizontalScrollIndicator={false}
+
+                    pagingEnabled
                     onMomentumScrollEnd={handleMomentumScrollEnd}
                 />
 
@@ -111,15 +117,16 @@ const WelcomeScreen = () => {
                 </ThemedView>
             </ThemedView>
 
+            {/* buttons */}
             <ThemedView style={styles.actionButtons}>
                 <CustomButton
                     title={`Login`}
-                    onButtonPress={() => router.push('(auth)/signin')}
+                    onButtonPress={() => router.push("/(auth)/signin")}
                     extendedStyles={styles.signinButton}
                 />
                 <CustomButton
                     title={`Sign Up`}
-                    onButtonPress={() => router.push("(auth)/signup")}
+                    onButtonPress={() => router.push("/(auth)/signup")}
                     extendedStyles={styles.signupButton}
                 />
             </ThemedView>

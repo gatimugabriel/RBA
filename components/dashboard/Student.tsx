@@ -26,15 +26,19 @@ interface Class {
 
 export default function StudentDashboard() {
     const [refreshing, setRefreshing] = useState(false);
+
     const [availableClasses, setAvailableClasses] = useState<Class[]>([]);
     const [joinedClasses, setJoinedClasses] = useState<Class[]>([]);
+
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const fetchAvailableClasses = async () => {
         try {
             setIsLoading(true)
+
             const response = await apiService('/classes/available');
             return response.data.data;
+
         } catch (err: any) {
             alert(`Error occurred while loading your data: ${err.message || err.response.data.message}`);
             setRefreshing(false);
@@ -46,8 +50,10 @@ export default function StudentDashboard() {
     const fetchJoinedClasses = async () => {
         try {
             setIsLoading(true)
+
             const response = await apiService('/classes/joined');
             return response.data.data;
+
         } catch (err: any) {
             alert(`Error occurred while loading your data: ${err.message || err.response.data.message}`);
             setRefreshing(false);
@@ -68,7 +74,12 @@ export default function StudentDashboard() {
 
     const onRefresh = useCallback(() => {
         setRefreshing(true);
-        Promise.all([fetchAvailableClasses(), fetchJoinedClasses()]).then(([availableData, joinedData]) => {
+        Promise.all(
+            [
+                fetchAvailableClasses(),
+                fetchJoinedClasses()
+            ]
+        ).then(([availableData, joinedData]) => {
             setRefreshing(false);
             setAvailableClasses(availableData || []);
             setJoinedClasses(joinedData || []);
@@ -79,6 +90,8 @@ export default function StudentDashboard() {
         try {
             setIsLoading(true)
             const response = await apiService.post('/classes/join', {classID});
+
+
             onRefresh();
             alert(response.data.message)
         } catch (err: any) {
@@ -92,14 +105,17 @@ export default function StudentDashboard() {
         <TouchableOpacity style={styles.classItem}>
             <ThemedText style={[styles.className, {fontSize: 20, marginBottom: 10}]}>{item.className}</ThemedText>
             <ThemedText style={[styles.className, {color: 'gray'}]}>Tutor:
-                Mr. {item.teacherID.fullName}</ThemedText>
+                {item.teacherID.fullName}</ThemedText>
             <ThemedView style={{flexDirection: 'row', alignItems: 'center', marginBottom: 30}}>
                 <ThemedText style={[styles.className, {color: 'gray'}]}>Time: </ThemedText>
                 <ThemedText style={{fontSize: 14}}>{item.day}, [ {item.time} ]</ThemedText>
             </ThemedView>
-            {/*<ThemedText style={styles.studentsCount}>{item?.studentsCount || 0} students</ThemedText>*/}
+
+
             {isLoading ? <ActivityIndicator/> :
-                <CustomButton title="Join Class" onButtonPress={() => joinClass(item._id)}/>}
+                <CustomButton title="Join Class" onButtonPress={() => joinClass(item._id)}/>
+            }
+
         </TouchableOpacity>
     )
 
@@ -107,12 +123,11 @@ export default function StudentDashboard() {
         <TouchableOpacity style={styles.classItem}>
             <ThemedText style={styles.className}>{item.className}</ThemedText>
             <ThemedText style={[styles.className, {color: 'gray'}]}>Tutor:
-                Mr. {item.teacherID.fullName}</ThemedText>
+                {item.teacherID.fullName}</ThemedText>
             <ThemedView style={{flexDirection: 'row', alignItems: 'center'}}>
                 <ThemedText style={[styles.className, {color: 'gray'}]}>Time: </ThemedText>
                 <ThemedText style={{fontSize: 14}}>{item.day}, [ {item.time} ]</ThemedText>
             </ThemedView>
-            {/*<ThemedText style={styles.studentsCount}>{item?.studentsCount || 0} students</ThemedText>*/}
         </TouchableOpacity>
     );
 
@@ -129,15 +144,12 @@ export default function StudentDashboard() {
                 <ThemedView style={[styles.header, {marginVertical: 20}]}>
                     <ThemedText style={styles.headerText}>My Classes</ThemedText>
                 </ThemedView>
+
                 <FlatList
                     data={joinedClasses}
                     renderItem={renderJoinedClassItem}
                     keyExtractor={item => item._id}
-                    // ListHeaderComponent={() => (
-                    //     <ThemedView style={styles.header}>
-                    //         <ThemedText style={styles.headerText}>My Classes</ThemedText>
-                    //     </ThemedView>
-                    // )}
+
                     horizontal
                     ListEmptyComponent={() => (
                         <ThemedView style={styles.emptyState}>
@@ -151,12 +163,14 @@ export default function StudentDashboard() {
                 <ThemedView style={styles.header}>
                     <ThemedText style={styles.headerText}>Classes you can join</ThemedText>
                 </ThemedView>
+
                 <FlatList
                     data={availableClasses}
                     renderItem={renderClassItem}
                     keyExtractor={item => item._id}
-
                     horizontal
+
+
 
                     ListEmptyComponent={() => (
                         <ThemedView style={styles.emptyState}>

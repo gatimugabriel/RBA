@@ -2,15 +2,17 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const apiService = axios.create({
-    baseURL: 'http://192.168.88.249:3000/api',
+    baseURL: 'https://rba-server.onrender.com/api',
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
     },
 });
 
+// Attach auth token to headers
 apiService.interceptors.request.use(
     async (config) => {
+
         const userInfo: any = await AsyncStorage.getItem('user');
         const user = JSON.parse(userInfo)
         if (user) {
@@ -25,6 +27,9 @@ apiService.interceptors.request.use(
 
 apiService.interceptors.response.use(
     (response) => response,
+
+
+
     async (error) => {
         if (error.response && error.response.status === 401) {
             await AsyncStorage.removeItem('user');

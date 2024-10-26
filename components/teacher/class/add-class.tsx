@@ -27,11 +27,13 @@ const CreateClassModal = ({visible, onClose, onClassCreated}: CreateClassModalPr
 
         setLoading(true);
         try {
+
             await apiService.post('/create-class', {
                 className,
                 day,
                 time
             });
+
             setLoading(false);
 
 
@@ -41,6 +43,7 @@ const CreateClassModal = ({visible, onClose, onClassCreated}: CreateClassModalPr
 
             onClassCreated();
             onClose();
+
         } catch (err: any) {
             setLoading(false);
             alert(`Error occurred while creating class: ${err.response.data.message || err.message}`);

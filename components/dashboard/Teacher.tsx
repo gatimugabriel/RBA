@@ -66,10 +66,12 @@ export default function TeacherDashboard() {
 
     return (
         <SafeAreaView style={[CommonStyles.container, styles.container]}>
+
             <FlatList
                 data={classes}
                 renderItem={renderClassItem}
                 keyExtractor={item => item._id}
+
                 refreshControl={
                     <RefreshControl
                         refreshing={refreshing}
@@ -81,6 +83,7 @@ export default function TeacherDashboard() {
                 ListHeaderComponent={() => (
                     <ThemedView style={styles.header}>
                         <ThemedText style={styles.headerText}>My Classes</ThemedText>
+
                         <CustomButton
                             title={`Create Class`}
                             extendedStyles={styles.createClassButton}
@@ -95,6 +98,7 @@ export default function TeacherDashboard() {
                             students!</ThemedText>
                     </ThemedView>
                 )}
+
                 contentContainerStyle={styles.flatList}
             />
 
@@ -103,7 +107,6 @@ export default function TeacherDashboard() {
                 onClose={() => setModalVisible(false)}
                 onClassCreated={handleClassCreated}
             />
-
 
         </SafeAreaView>
     );

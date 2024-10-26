@@ -7,7 +7,7 @@ export default function AuthLayout() {
     // Auto Login if user exists
     if (user) {
         // return router.replace('(tabs)')
-        return <Redirect href={'(tabs)'}/>
+        return <Redirect href={`/(tabs)`}/>
     }
 
     return (
